@@ -1,4 +1,4 @@
-package swiss.sib.selenium.test.kit;
+package org.nextprot.selenium.tests;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by vioannid on 23/05/16.
+ * Create by Daniel Teixeira
  */
 public class BaseSeleniumTest {
 
