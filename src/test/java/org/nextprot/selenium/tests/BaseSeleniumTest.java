@@ -32,9 +32,9 @@ public class BaseSeleniumTest {
 
         DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
 
-        //desiredCapabilities.setCapability("webdriver.chrome.args", Arrays.asList("--whitelisted-ips=192.33.215.52"));
+        desiredCapabilities.setCapability("webdriver.chrome.args", Arrays.asList("--whitelisted-ips=192.33.215.52"));
 
-        //System.setProperty("webdriver.chrome.driver", "/Users/dteixeira/Downloads/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/home/local/selenium/chromedriver");
         driver = new ChromeDriver(desiredCapabilities);
         screenshotHelper = new ScreenshotHelper();
     }
