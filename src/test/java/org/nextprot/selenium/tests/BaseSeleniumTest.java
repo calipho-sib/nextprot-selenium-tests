@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Create by Daniel Teixeira
  */
-public class BaseSeleniumTest {
+public abstract class BaseSeleniumTest {
 
     private String baseUrl;
     private WebDriver driver;
