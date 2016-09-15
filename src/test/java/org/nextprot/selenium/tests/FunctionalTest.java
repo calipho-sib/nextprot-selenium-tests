@@ -36,7 +36,7 @@ public class FunctionalTest extends BaseSeleniumTest {
         WebElement advSearchButton = getDriver().findElement(By.id("advanced-search"));
         advSearchButton.click();
 
-        new WebDriverWait(getDriver(), 10).until(new Predicate<WebDriver>() {
+        new WebDriverWait(getDriver(), 20).until(new Predicate<WebDriver>() {
 
             @Override
             public boolean apply(WebDriver driver) {
