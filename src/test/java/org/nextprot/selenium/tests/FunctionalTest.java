@@ -1,7 +1,9 @@
 package org.nextprot.selenium.tests;
 
+import com.google.common.base.Predicate;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -23,47 +25,44 @@ public class FunctionalTest extends BaseSeleniumTest {
                 public Boolean apply(WebDriver d) {
                     return d.getPageSource().contains("Insulin decreases blood glucose concentration");
                 }
-            }
-        );
-
+            });
     }
 
-    /*@Test
-    public void shouldGetDescriptionOfInsulinAfterAnAdvancedSearch() throws IOException {
+    @Test
+    public void shouldGetDescriptionOfAnAdvancedSearch() throws IOException {
 
         getDriver().get("https://www.nextprot.org");
 
         WebElement advSearchButton = getDriver().findElement(By.id("advanced-search"));
         advSearchButton.click();
 
-        WebElement spanElement = getDriver().findElement(By.xpath("//div[@class=\"CodeMirror-code\"]//span/span"));
-        spanElement.sendKeys("roudoudou");
+        new WebDriverWait(getDriver(), 10).until(new Predicate<WebDriver>() {
 
-        System.out.println("uiCodeMirror");
+            @Override
+            public boolean apply(WebDriver driver) {
 
-        //WebElement textArea = getDriver().findElement(By.id("search-query-advanced")).findElement(By.xpath("//textarea"));
-        //System.out.println(textArea);
+                String query = "select distinct ?entry where {" +
+                        "  ?entry :isoform ?iso. " +
+                        "  ?iso :keyword / :term cv:KW-0597. " +
+                        "  ?iso :cellularComponent /:term /:childOf cv:SL-0086. " +
+                        "}";
 
-        //List<WebElement> textAreaList = getDriver().findElements(By.xpath("//ui-codemirror//textarea"));
-        //System.out.println(textAreaList);
+                String script = "angular.element('[ng-controller=SearchCtrl]').scope().Search.params.sparql=\"" + query +"\";";
 
-        //WebElement spanElement = getDriver().findElement(new By.ByXPath("//div[@class=CodeMirror-code]"));
+                if (driver instanceof JavascriptExecutor) {
 
-        /*textArea.sendKeys("select distinct ?entry where {\n" +
-                "  ?entry :isoform ?iso.\n" +
-                "  ?iso :keyword / :term cv:KW-0597.\n" +
-                "  ?iso :cellularComponent /:term /:childOf cv:SL-0086.\n" +
-                "}");
+                    ((JavascriptExecutor) driver).executeScript(script);
+                    driver.findElement(By.id("search-button")).submit();
 
-        textArea.submit();
+                    new WebDriverWait(getDriver(), 10).until(new ExpectedCondition<Boolean>() {
+                        public Boolean apply(WebDriver d) {
+                            return d.getPageSource().contains("Regulator that plays a central role in regulation of apoptosis");
+                        }
+                    });
+                }
 
-        new WebDriverWait(getDriver(), 10).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-
-                return d.getPageSource().contains("Regulator that plays a central role in regulation of apoptosis");
+                return true;
             }
         });
     }
-    */
-
 }
