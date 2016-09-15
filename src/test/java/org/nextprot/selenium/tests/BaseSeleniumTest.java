@@ -7,19 +7,19 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * Create by Daniel Teixeira
  */
-public class BaseSeleniumTest {
+public abstract class BaseSeleniumTest {
 
-    private String baseUrl;
     private WebDriver driver;
     private ScreenshotHelper screenshotHelper;
 
@@ -30,11 +30,13 @@ public class BaseSeleniumTest {
     @Before
     public void openBrowser() {
 
+        Properties props = readPropertiesFromFile("nextprot-selenium.properties");
+
+        System.setProperty("webdriver.chrome.driver", props.getProperty("webdriver.chrome.driver"));
+
         DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+        desiredCapabilities.setCapability("webdriver.chrome.args", props.getProperty("webdriver.chrome.args"));
 
-        desiredCapabilities.setCapability("webdriver.chrome.args", Arrays.asList("--whitelisted-ips=192.33.215.52"));
-
-        System.setProperty("webdriver.chrome.driver", "/home/local/selenium/chromedriver");
         driver = new ChromeDriver(desiredCapabilities);
         screenshotHelper = new ScreenshotHelper();
     }
@@ -51,5 +53,19 @@ public class BaseSeleniumTest {
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(screenshot, new File(screenshotFileName));
         }
+    }
+
+    private static Properties readPropertiesFromFile(String filename) {
+
+        Properties props = new Properties();
+
+        try (InputStream input = new FileInputStream(filename)) {
+
+            props.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return props;
     }
 }
