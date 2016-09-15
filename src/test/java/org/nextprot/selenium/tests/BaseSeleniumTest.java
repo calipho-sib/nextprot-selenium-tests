@@ -3,6 +3,8 @@ package org.nextprot.selenium.tests;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,8 @@ public abstract class BaseSeleniumTest {
 
     private WebDriver driver;
     private ScreenshotHelper screenshotHelper;
+    @Rule
+    public TestName name = new TestName();
 
     protected WebDriver getDriver() {
         return driver;
@@ -43,7 +47,7 @@ public abstract class BaseSeleniumTest {
 
     @After
     public void saveScreenshotAndCloseBrowser() throws IOException {
-        screenshotHelper.saveScreenshot("screenshot.png");
+        screenshotHelper.saveScreenshot(name.getMethodName()+"_screenshot.png");
         driver.quit();
     }
 
