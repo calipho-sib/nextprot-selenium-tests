@@ -15,7 +15,7 @@ public class SeoTest extends BaseSeleniumTest {
 
     @Test
     public void shouldGetCorrectTitleForPeptidePageInsm1() throws IOException {
-        getDriver().get("https://search.nextprot.org/entry/NX_Q01101/peptides");
+        getDriver().get("https://www.nextprot.org/entry/NX_Q01101/peptides");
         assertEquals("The page title should equal INSM1 - Peptides", "INSM1 - Insulinoma-associated protein 1 - Peptides", getDriver().getTitle());
     }
 
@@ -23,7 +23,7 @@ public class SeoTest extends BaseSeleniumTest {
     @Test
     public void shouldGetCorrectMetaDescriptionForBrca2() throws IOException {
 
-        getDriver().get("https://search.nextprot.org/entry/NX_P51587/medical");
+        getDriver().get("https://www.nextprot.org/entry/NX_P51587/medical");
         String description = getDriver().findElement(By.xpath("//meta[@name='description']")).getAttribute("content");
         assertTrue(description.contains("NX_P51587 - BRCA2 - Breast cancer type 2 susceptibility protein - Medical."));
     }

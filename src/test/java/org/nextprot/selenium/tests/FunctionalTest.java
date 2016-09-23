@@ -20,7 +20,7 @@ public class FunctionalTest extends BaseSeleniumTest{
     @Test
     public void shouldGetDescriptionOfInsulinAfterASearch() throws IOException {
 
-        getDriver().get("http://search.nextprot.org");
+        getDriver().get("http://www.nextprot.org");
         WebElement searchField = getDriver().findElement(By.id("search-query"));
         searchField.sendKeys("insulin");
         searchField.submit();
