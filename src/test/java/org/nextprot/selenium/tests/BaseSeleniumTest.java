@@ -1,28 +1,29 @@
 package org.nextprot.selenium.tests;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
  * Create by Daniel Teixeira
  */
 public class BaseSeleniumTest {
 
-    private String baseUrl;
     private WebDriver driver;
     private ScreenshotHelper screenshotHelper;
 
+    
     protected WebDriver getDriver() {
         return driver;
     }
@@ -30,12 +31,16 @@ public class BaseSeleniumTest {
     @Before
     public void openBrowser() {
 
-        DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+    	DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 
-        desiredCapabilities.setCapability("webdriver.chrome.args", Arrays.asList("--whitelisted-ips=192.33.215.52"));
+    	capabilities.setCapability("webdriver.chrome.args", Arrays.asList("--whitelisted-ips=192.33.215.52"));
 
-        System.setProperty("webdriver.chrome.driver", "/home/local/selenium/chromedriver");
-        driver = new ChromeDriver(desiredCapabilities);
+        try {
+			driver = new RemoteWebDriver(new URL("http://jenkins.vital-it.ch:4444/wd/hub"), capabilities);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+        
         screenshotHelper = new ScreenshotHelper();
     }
 
