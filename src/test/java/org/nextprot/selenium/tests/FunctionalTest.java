@@ -1,6 +1,8 @@
 package org.nextprot.selenium.tests;
 
-import com.google.common.base.Predicate;
+import java.io.IOException;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
+import com.google.common.base.Predicate;
 
 public class FunctionalTest extends BaseSeleniumTest {
 
@@ -29,6 +31,7 @@ public class FunctionalTest extends BaseSeleniumTest {
     }
 
     @Test
+    @Ignore
     public void shouldGetDescriptionOfAnAdvancedSearch() throws IOException {
 
         getDriver().get("https://www.nextprot.org");

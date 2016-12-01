@@ -3,13 +3,14 @@
  */
 package org.nextprot.selenium.tests;
 
-import org.junit.Test;
-import org.openqa.selenium.By;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.IOException;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.openqa.selenium.By;
 
 public class SeoTest extends BaseSeleniumTest {
 
@@ -19,13 +20,13 @@ public class SeoTest extends BaseSeleniumTest {
         assertEquals("The page title should equal INSM1 - Peptides", "INSM1 - Insulinoma-associated protein 1 - Peptides", getDriver().getTitle());
     }
 
-/*
     @Test
+    @Ignore
     public void shouldGetCorrectMetaDescriptionForBrca2() throws IOException {
 
         getDriver().get("https://www.nextprot.org/entry/NX_P51587/medical");
         String description = getDriver().findElement(By.xpath("//meta[@name='description']")).getAttribute("content");
         assertTrue(description.contains("NX_P51587 - BRCA2 - Breast cancer type 2 susceptibility protein - Medical."));
-    }*/
+    }
 
 }

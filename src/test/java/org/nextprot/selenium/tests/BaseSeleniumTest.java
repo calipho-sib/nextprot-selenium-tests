@@ -43,7 +43,7 @@ public abstract class BaseSeleniumTest {
     	capabilities.setCapability("webdriver.chrome.args", Arrays.asList("--whitelisted-ips=192.33.215.52"));
 
         try {
-			driver = new RemoteWebDriver(new URL("http://jenkins.vital-it.ch:4444/wd/hub"), capabilities);
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
